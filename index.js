@@ -40,7 +40,7 @@ app.delete('/', (req, res)=>{
 
 
 // connect to MongoDBAtlas
-mongoose.connect(process.env.MONGO_DB_CON_sTRING, (error)=>{
+mongoose.connect(process.env.MONGO_DB_CON_STRING, (error)=>{
     if(error){
      return   console.log(`Failed to connect to MongDB ${error}`)
     }else{
