@@ -15,7 +15,7 @@ const app = express();
 
 
 // create a variable for our PORT number
-const PORT = 5000;
+const PORT =process.env.PORT?? 5000;
 
 
 // create routes to make request to the serve
