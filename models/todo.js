@@ -11,7 +11,8 @@ const {Schema, model} = mongoose;
 const todoSchema = Schema({
     title: String,
     description: String,
-    dateTime: String,
+    date: String,
+    time: String,
     isCompleted: Boolean
 });
 
