@@ -1,29 +1,32 @@
-// import the express package
-import express, { response } from "express";
+// import the packages we need
+import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+// loads the env file content into the process.env 
+dotenv.config();
+// import Todo model to perform crud operations
 import { Todo } from "./models/todo.js";
 
-dotenv.config();
 
 // create an instance of express
 const app = express();
 
+// use the json middleware to
+// extract the data stored in the request body
 app.use(express.json());
 
 // create a variable for our PORT number
-const PORT = process.env.PORT ?? 5432;
+const PORT = process.env.PORT ?? 5000;
 
-// create routes to make request to the serve
+// create an index route to test our server
 app.get("/", async (req, res) => res.send("Hello World"));
 
-// create routes to make request to the serve
+// create routes to perform CRUD operations with the Todo model
 app.get("/todos", async (req, res) => {
   const result = await Todo.find({});
   res.json(result);
 });
 
-// make the handler an async function by adding the async keyword
 app.post("/todo", async (req, res) => {
   // extract the necessary fields from the body
   const { title, description, date,time, isCompleted } = req.body;
@@ -43,18 +46,20 @@ app.post("/todo", async (req, res) => {
 
 app.patch("/todo/:todoID", async (req, res) => {
   //find and update a model by
-  // passing in the id, the data to be updated, and set the new option to true
+  // passing in the id, the data to be updated,
+  // and set the new option to true
   const result = await Todo.findByIdAndUpdate(
     req.params.todoID, // _id of the document
     { ...req.body }, // the data to be used to update the document
-    { new: true } // some options for the operation
+    { new: true } // options
   );
   res.json(result);
 });
 
 app.put("/todo/:todoID", async (req, res) => {
   //find and update a model by
-  // passing in the id, the data to be updated, and set the new option to true
+  // passing in the id, the data to be updated,
+  // and set the new and overwrite options to true
   const result = await Todo.findByIdAndUpdate(
     req.params.todoID, // _id of the document
     { ...req.body }, // data to be replaced
@@ -67,7 +72,6 @@ app.delete("/todo/:todoID", async (req, res) => {
   //find and delete a model by
   // passing in the id and a callback function
   // that takes in the error and the deletedDocument
-
   await Todo.findByIdAndDelete(req.params.todoID, (error, doc) => {
     if (error){
      console.log(`Failed to connect to MongDB ${error}`);
@@ -78,6 +82,7 @@ app.delete("/todo/:todoID", async (req, res) => {
       }
   });
 });
+
 
 // connect to MongoDBAtlas
 mongoose.connect(process.env.MONGO_DB_CON_STRING, (error) => {
@@ -92,3 +97,4 @@ mongoose.connect(process.env.MONGO_DB_CON_STRING, (error) => {
     });
   }
 });
+
