@@ -381,7 +381,7 @@ Anytime you push your code to GitHub, cyclic.sh will deploy your server and give
 
 cyclic.sh will generate a random unique url for your server. Use this url instead of `http://localhost:5000` when you are making requests.
 
-//TODO: Insert screenshot of the process here
+Follow this article for a detailed guide to [deploying your API on cyclic.sh](https://dev.to/_iametornam/deploy-your-nodejs-auth0-rest-api-to-cyclicsh-under-4-minutes-j8h)
 
 > ProTip: Anything can go wrong when a server receives a request. It is recommended that you always wrap your codes in a try/catch block to handle the errors.
 
